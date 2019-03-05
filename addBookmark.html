@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BOOKMARK APP</title>
+
+  <!-- Responsive viewport tag, tells small screens that it's responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/fluidGrid.css" />
+  <link rel="stylesheet" href="css/index.css"/>
+</head>
+
+<body>
+    <nav class = 'nav-bar' role = 'nav-bar'>My Bookmark</nav>
+
+    <div class="row">
+	    <div class="col-12">
+
+        <div class="box bookmark-tool-box">
+          <form name = 'add-bookmark-form' class='add-bookmark-form'>
+            <div> 
+            <input type="text" placeholder="book title"></input>
+            <input type="text" placeholder="site link"></input>
+            </div>
+            <div>
+                <textarea rows='5' cols='50' placeholder='description'type="text"></textarea>
+            </div>
+            <div class='star-rating'>
+            <input type="radio" name="1-star" value="1 star"> 1 star<br>
+            <input type="radio" name="2-stars" value="2 star"> 2 star<br>
+            <input type="radio" name="3-stars" value="3 star"> 3 star<br>
+            <input type="radio" name="4-stars" value="4 star"> 4 star<br>
+            <input type="radio" name="4-stars" value="5 star"> 5 star<br>
+            </div>
+            <button class='add-bookmark-submit'>Submit</button>
+          </form>
+          
+          
+          
+        </div>
+        
+        <ul class="box bookmark-list">Bookmark Area</ul>
+      </div>
+	  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.js" ></script>
+  <script src="script/api.js"></script>
+  <script src="script/store.js"></script>
+  <script src="script/bookmarkList.js"></script>
+  <script src="script/index.js"></script>
+</body>
+</html>
