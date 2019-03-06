@@ -82,7 +82,7 @@ const bookmarkList = (function(){
   </li>
     `;
   }
-  function generateExpandedBookmarkHtml(id,title,rating,desc){
+  function generateExpandedBookmarkHtml(id,title,rating,desc,url){
     return `<li data-item-id = ${id} class="expanded"id='bookmark-title-list'>
     <div class='book-title'>
       ${title}
@@ -91,11 +91,11 @@ const bookmarkList = (function(){
       ${desc}
     </div>
     <div class="bookmark-visit-site">
-    <button class="bookmark-visit-site-button">Visit site</button>
+    <a target="_blank" href = ${url}>Visit site</a>
     </div>
     <div class="bookmark-edit-collaspe">
-        <button class="bookmark-visit-site-button">Collapse</button>
-        <button class="bookmark-visit-site-button">Edit</button>
+        <button class="bookmark-collapse-expanded">Collapse</button>
+        <button class="bookmark-edit">Edit</button>
         </div>
     <div class='book-star-rating'>              
     ${generateRatingStarsHtmlString(rating)}
@@ -112,11 +112,14 @@ const bookmarkList = (function(){
       let title = bookmarkStore.items[i].title;
       let rating = bookmarkStore.items[i].rating;
       let desc = bookmarkStore.items[i].desc;
+      let url = bookmarkStore.items[i].url;
       if(bookmarkStore.items[i].expanded){
-        bookmarkListingHtml.push(generateExpandedBookmarkHtml(id,title,rating,desc));
+        bookmarkListingHtml.push(generateExpandedBookmarkHtml(id,title,rating,desc,url));
       }
       //console.log('testing inside loop',id,title,rating);
-      bookmarkListingHtml.push(generateBookmarkItemHtmlString(id,title,rating));
+      else{
+        bookmarkListingHtml.push(generateBookmarkItemHtmlString(id,title,rating));
+      }
     }
     //console.log('testing bookmarkListing string',bookmarkListingHtml);
     return bookmarkListingHtml.join('');
@@ -174,13 +177,25 @@ const bookmarkList = (function(){
     });
   }
 
+  function setExpandedFalse(id){
+    let foundItem = bookmarkStore.items.find(bookmark => bookmark.id===id);
+    foundItem.expanded = false;
+  }
+
   function collaspeBookmark(){
-    
+    console.log('`collaspeBookmark` ran');
+    $('ul').on('click','.bookmark-collapse-expanded',function(){
+      const id = $(this).parents('li').data('item-id');
+      setExpandedFalse(id);
+      render();
+    });
   }
 
   function addNewBookmarkToStore(object){
     console.log('`addNewBookmarkToStore` ran');
-    bookmarkStore.items.push(object);
+    let objectAddExpanded = Object.assign(object,{expanded:false});
+    
+    bookmarkStore.items.push(objectAddExpanded);
     bookmarkStore.adding=false;
     console.log('testing adding',bookmarkStore.adding);
     render();
@@ -243,6 +258,7 @@ const bookmarkList = (function(){
     editBookmark();
     addNewBookmark();
     mouseOverBookmarkItem();
+    collaspeBookmark();
     
     render();
     console.log('`bindEventListeners` ran');
