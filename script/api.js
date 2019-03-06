@@ -47,8 +47,20 @@ const api = (function(){
     return listApiFetch(BASE_URL+'/bookmarks',option);
   };
 
+  const deleteItem=function(id){
+    const option = {
+      method: 'DELETE', 
+      headers: new Headers ({
+        'Content-type': 'application/json'
+      }),
+    };
+    return fetch(BASE_URL+`/bookmarks/${id}`,option);
+  };
+
+
   return {
     getItems:getItems,
-    createItem:createItem
+    createItem:createItem,
+    deleteItem:deleteItem
   };
 }());

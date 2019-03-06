@@ -85,16 +85,24 @@ const bookmarkList = (function(){
   function generateExpandedBookmarkHtml(id,title,rating,desc,url){
     return `<li data-item-id = ${id} class="expanded"id='bookmark-title-list'>
     <div class='book-title'>
+      
+      <div class = 'title'>
       ${title}
-    </div>
-    <div class='book-description'>
+      </div>
+      <div class='bookmark-expand-delete hidden'>
+        <span class='bookmark-expand fa fa-expand fa-lg'></span>
+        <span class='bookmark-delete fa fa-trash fa-lg'></span>
+      </div>
+      </div>
+    
+      <div class='book-description'>
       ${desc}
     </div>
     <div class="bookmark-visit-site">
     <a target="_blank" href = ${url}>Visit site</a>
     </div>
     <div class="bookmark-edit-collaspe">
-        <button class="bookmark-collapse-expanded">Collapse</button>
+        
         <button class="bookmark-edit">Edit</button>
         </div>
     <div class='book-star-rating'>              
@@ -166,7 +174,7 @@ const bookmarkList = (function(){
 
   function findExpandedAndUpdateStore(id){
     let foundItem = bookmarkStore.items.find(bookmark=>bookmark.id===id);
-    Object.assign(foundItem,{expanded:true});
+    Object.assign(foundItem,{expanded:!foundItem.expanded});
   }
 
   function expandBookmark(){
@@ -177,19 +185,6 @@ const bookmarkList = (function(){
     });
   }
 
-  function setExpandedFalse(id){
-    let foundItem = bookmarkStore.items.find(bookmark => bookmark.id===id);
-    foundItem.expanded = false;
-  }
-
-  function collaspeBookmark(){
-    console.log('`collaspeBookmark` ran');
-    $('ul').on('click','.bookmark-collapse-expanded',function(){
-      const id = $(this).parents('li').data('item-id');
-      setExpandedFalse(id);
-      render();
-    });
-  }
 
   function addNewBookmarkToStore(object){
     console.log('`addNewBookmarkToStore` ran');
@@ -249,6 +244,12 @@ const bookmarkList = (function(){
 
   function deleteBookmark(){
     console.log('`deleteBookmark` ran');
+    $('ul').on('click','.bookmark-delete',function(event){
+      const id = $(this).parents('li').data('item-id');
+      console.log('delete',id);
+      api.deleteItem(id)
+        .then(() => bookmarkStore.deleteItem(id));
+    });
   }
 
   function bindEventListeners(){
@@ -258,7 +259,7 @@ const bookmarkList = (function(){
     editBookmark();
     addNewBookmark();
     mouseOverBookmarkItem();
-    collaspeBookmark();
+   
     
     render();
     console.log('`bindEventListeners` ran');
