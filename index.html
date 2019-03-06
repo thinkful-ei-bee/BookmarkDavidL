@@ -17,54 +17,35 @@
     <nav class = 'nav-bar' role = 'nav-bar'>My Bookmark</nav>
 
     <div class="row">
-	    <div class="col-12">
-
-        <div class="box bookmark-tool-box">
-          
-          
-          <div class='bookmark-tool-search'>
-            <button class="js-add-bookmark" type = 'submit'>Add New Bookmark</button>
-            <select class = 'star-filter' placeholder = 'minimum rating'name="star-filter">
-              <option id="1-star" value="1 star">1 star</option>
-              <option id="2-star" value="2 stars">2 stars</option>
-              <option id="3-star" value="3 stars">3 stars</option>
-              <option id="4-star" value="4 stars">4 stars</option>
-              <option id="5-star" value="5 stars">5 stars</option>
-            </select>
+	    <div class="col-12">          
+        <div class="add-bookmark">
+        <div class="box bookmark-tool-box">                      
+            <div class='bookmark-tool-search'>
+                
+                <button class="js-add-bookmark" type = 'submit'>Add New Bookmark</button>
+                
+                <select class = 'star-filter' placeholder = 'minimum rating'name="star-filter">
+                  <option id="1-star" value="1 star">1 star</option>
+                  <option id="2-star" value="2 stars">2 stars</option>
+                  <option id="3-star" value="3 stars">3 stars</option>
+                  <option id="4-star" value="4 stars">4 stars</option>
+                  <option id="5-star" value="5 stars">5 stars</option>
+                </select>
             </div>
+              
             <div class='search-bookmark'>
-           <input placeholder="search bookmark"></input>
-           </div>
-          
+               <input placeholder="search bookmark"></input>
+            </div>
+          </div>
         </div>
+        <div class='entry-error-field'>
+  
+          </div>
+        
+
         <div class = "box bookmark-list-box">
         <ul class="bookmark-list">
-          <li data-item-id = '1' id='bookmark-title-list'>
-            <div class='book-title'>
-              Book title 1
-            </div>
-            <div class='book-star-rating'>              
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-            </div>
-          </li>
-          <li>
-              <div class='book-title'>
-                Book title 2
-              </div>
-              <div class='book-star-rating'>              
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star "></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-              </div>
-            </li>
-          <li></li>
-          <li></li>
+          
 
         </ul>
       </div>
@@ -73,6 +54,7 @@
   <script src="https://code.jquery.com/jquery-3.3.1.js" ></script>
   <script src="script/api.js"></script>
   <script src="script/store.js"></script>
+  
   <script src="script/bookmarkList.js"></script>
   <script src="script/index.js"></script>
 </body>

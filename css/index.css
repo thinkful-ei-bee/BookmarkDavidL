@@ -75,8 +75,39 @@ button{
 }
 
 .star-rating{
-  float:right ;
+  margin-top:20px;
+  margin-bottom:20px;
   
+  
+  
+}
+
+.book-title{
+  position: relative;
+}
+
+.fa-expand{
+  margin-right:10px;
+  padding-bottom:10px;
+}
+
+.title{
+  position: absolute;
+  top:25%;
+  left:3%;
+}
+
+li .bookmark-expand-delete{
+  text-align: right;
+  
+  position: absolute;
+  top:30%;
+  right:2%;
+  
+  
+}
+.hidden{
+  display:none;
 }
 
 .black {
