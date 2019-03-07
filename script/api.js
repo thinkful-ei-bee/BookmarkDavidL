@@ -34,6 +34,9 @@ const api = (function(){
     return listApiFetch(BASE_URL+'/bookmarks');
   };
 
+  const getUniqueItem = function(id){
+    return listApiFetch(BASE_URL+`/bookmarks/${id}`);
+  };
 
   const createItem = function(newItem){
     
@@ -56,7 +59,7 @@ const api = (function(){
       body: updateData
     };
     
-    return listApiFetch(BASE_URL+`/items/${id}`, option);
+    return listApiFetch(BASE_URL+`/bookmarks/${id}`, option);
   };
 
   const deleteItem=function(id){
@@ -74,6 +77,7 @@ const api = (function(){
     getItems:getItems,
     createItem:createItem,
     deleteItem:deleteItem,
-    updateItem:updateItem
+    updateItem:updateItem,
+    getUniqueItem:getUniqueItem
   };
 }());

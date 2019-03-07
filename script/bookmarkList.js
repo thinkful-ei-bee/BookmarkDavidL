@@ -1,5 +1,5 @@
 'use strict';
-/*global bookmarkStore api $ */ 
+/*global bookmarkStore api $ addItemsToLocalStoreAndRender*/ 
 
 const bookmarkList = (function(){
 
@@ -49,8 +49,8 @@ const bookmarkList = (function(){
     <input type="radio" name="rating" value="4"> 4<br>
     <input type="radio" name="rating" value="5"> 5<br>
     </div>
-    <button type = 'submit' class='add-bookmark-submit'>Submit</button>
-    <button type = 'button' class='add-bookmark-submit-cancel'>cancel</button>
+    <button type = 'submit' class='edit-bookmark-submit'>Submit</button>
+    <button type = 'button' class='edit-bookmark-submit-cancel'>cancel</button>
   </form></div></li></div>
   
     `;
@@ -191,18 +191,53 @@ const bookmarkList = (function(){
   }
 
   function editBookmarkHandler(){
-    console.log('`editBookmark` ran');   
+    console.log('`editBookmark handler` ran');   
     $('ul').on('click','.bookmark-edit',function(event){
       const id = $(this).parents('li').data('item-id');
       let foundItem = bookmarkStore.items.find(bookmark=>bookmark.id===id);
       console.log('test founditem in edit',foundItem);
-      Object.assign(foundItem,{edit:!foundItem.edit});
-      
+      Object.assign(foundItem,{edit:!foundItem.edit});     
       render();
     }); 
   }
-
   
+  function editBookmarkAndUpdateStore(id,updateData){
+    
+    console.log('testing editbookmark to store updateData',updateData);
+    let updateDataToStore = Object.assign(updateData,{expanded:false,edit:false});
+    console.log('testing editbookmark to store updateDataToStore',updateDataToStore);
+    let foundItemStoreWithId = bookmarkStore.items.find(bookmark=> bookmark.id===id);
+    console.log('testing editbookmark to store foundItem with id',foundItemStoreWithId);
+    Object.assign(foundItemStoreWithId,updateDataToStore);
+    bookmarkStore.adding=false;
+    render();
+  }
+
+  // edit-bookmark-submit-cancel
+  function editBookmark(){
+    console.log('`editBookmark` ran');
+    $('ul').on('submit','form',function(event){
+      event.preventDefault();
+      const id = $(this).parents('li').data('item-id');
+      let bookMarkEdited = $(event.target).serializeJson();
+
+      console.log('testing edited json form content',bookMarkEdited);
+      api.updateItem(id,bookMarkEdited)
+        .then(()=>{
+          // need to convert an jason object back to javascript object.
+          // here using JSON.parse()
+          editBookmarkAndUpdateStore(id,JSON.parse(bookMarkEdited));})
+      // tested, nothing returned
+      //.then(resJ=>console.log('testing j',resJ)) 
+      // api.getItem()
+        
+      //     console.log('testing unique item',resJson);
+      //     addItemsToLocalStoreAndRender(resJson);
+      //   })
+        .catch(err => addErrorToStoreAndRender(err.message));
+      render();
+    });
+  }
 
   function mouseOverBookmarkItem(){
     console.log('`mouseOverBookmark` ran');
@@ -306,6 +341,7 @@ const bookmarkList = (function(){
     editBookmarkHandler();
     addNewBookmark();
     mouseOverBookmarkItem();
+    editBookmark();
    
     
     render();
