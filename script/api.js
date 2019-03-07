@@ -47,6 +47,18 @@ const api = (function(){
     return listApiFetch(BASE_URL+'/bookmarks',option);
   };
 
+  const updateItem = function(id, updateData){
+    const option = {
+      method: 'PATCH', 
+      headers: new Headers ({
+        'Content-type': 'application/json'
+      }),
+      body: updateData
+    };
+    
+    return listApiFetch(BASE_URL+`/items/${id}`, option);
+  };
+
   const deleteItem=function(id){
     const option = {
       method: 'DELETE', 
@@ -61,6 +73,7 @@ const api = (function(){
   return {
     getItems:getItems,
     createItem:createItem,
-    deleteItem:deleteItem
+    deleteItem:deleteItem,
+    updateItem:updateItem
   };
 }());

@@ -85,19 +85,21 @@ const bookmarkList = (function(){
   function generateExpandedBookmarkHtml(id,title,rating,desc,url){
     return `<li data-item-id = ${id} class="expanded"id='bookmark-title-list'>
     <div class='book-title'>
-      
+    <form class='bookmark-expanded-edit-form'>
       <div class = 'title'>
-      ${title}
+      <input name = 'title' class="shopping-item" type="text" value="${title}" />
       </div>
+      </form>
       <div class='bookmark-expand-delete hidden'>
         <span class='bookmark-expand fa fa-expand fa-lg'></span>
         <span class='bookmark-delete fa fa-trash fa-lg'></span>
       </div>
       </div>
-    
-      <div class='book-description'>
+      
+      <div class='book-description'><h5>Description</h5>
       ${desc}
     </div>
+    
     <div class="bookmark-visit-site">
     <a target="_blank" href = ${url}>Visit site</a>
     </div>
@@ -245,6 +247,9 @@ const bookmarkList = (function(){
   function deleteBookmark(){
     console.log('`deleteBookmark` ran');
     $('ul').on('click','.bookmark-delete',function(event){
+      if(!confirm('Text here')) { 
+        return; 
+      }
       const id = $(this).parents('li').data('item-id');
       console.log('delete',id);
       api.deleteItem(id)

@@ -37,7 +37,7 @@ ul{
 .expanded{
   list-style-type:none;
   border:1px solid lightgray;
-  height:200px;
+  height:300px;
   border-radius:5px;
   margin-bottom:20px;
 
@@ -106,6 +106,10 @@ li .bookmark-expand-delete{
   
   
 }
+
+
+
+
 .hidden{
   display:none;
 }
