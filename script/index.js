@@ -6,7 +6,7 @@
 
 function addItemsToLocalStoreAndRender(resJson){
   resJson.forEach(bookmark => {
-    let objectAddExpanded = Object.assign(bookmark,{expanded:false});
+    let objectAddExpanded = Object.assign(bookmark,{expanded:false,edit:false});
     bookmarkStore.items.push(objectAddExpanded);});
   bookmarkList.render();
 }  
