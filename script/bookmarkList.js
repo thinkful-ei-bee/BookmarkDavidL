@@ -113,11 +113,11 @@ const bookmarkList = (function(){
   function generateExpandedBookmarkHtml(id,title,rating,desc,url){
     return `<li data-item-id = ${id} class="expanded"id='bookmark-title-list'>
     <div class='book-title'>
-    <form class='bookmark-expanded-edit-form'>
+    
       <div class = 'title'>
-      <input name = 'title' class="shopping-item" type="text" value="${title}" />
+      ${title}
       </div>
-      </form>
+      
       <div class='bookmark-expand-delete hidden'>
         <span class='bookmark-expand fa fa-expand fa-lg'></span>
         <span class='bookmark-delete fa fa-trash fa-lg'></span>
@@ -131,12 +131,14 @@ const bookmarkList = (function(){
     <div class="bookmark-visit-site">
     <a target="_blank" href = ${url}>Visit site</a>
     </div>
-    <div class="bookmark-edit-collaspe">
+    <div class="expand-footer">
         
         <button class="bookmark-edit">Edit</button>
-        </div>
-    <div class='book-star-rating'>              
-    ${generateRatingStarsHtmlString(rating)}
+        
+      <div class='book-star-rating'>
+                  
+        ${generateRatingStarsHtmlString(rating)}
+      </div>
     </div>
   </li>`;
   }
@@ -277,7 +279,7 @@ const bookmarkList = (function(){
       const id = $(this).parents('li').data('item-id');
       let bookMarkEdited = $(event.target).serializeJson();
 
-      console.log('testing edited json form content',bookMarkEdited);
+      console.log('testing edited json form content current',bookMarkEdited,id);
       api.updateItem(id,bookMarkEdited)
         .then(()=>{
           // need to convert an jason object back to javascript object.

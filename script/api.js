@@ -56,7 +56,7 @@ const api = (function(){
       body: updateData
     };
     
-    return listApiFetch(BASE_URL+`/items/${id}`, option);
+    return listApiFetch(BASE_URL+`/bookmarks/${id}`, option);
   };
 
   const deleteItem=function(id){
