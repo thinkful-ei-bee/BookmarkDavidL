@@ -63,11 +63,12 @@ const bookmarkList = (function(){
     <div class='bookmark-tool-search'>
             <button class="js-add-bookmark" type = 'submit'>Add New Bookmark</button>
             <select class = 'star-filter' placeholder = 'minimum rating'name="star-filter">
-              <option id="star" value="1 star">1 star</option>
-              <option id="star" value="2 stars">2 stars</option>
-              <option id="star" value="3 stars">3 stars</option>
-              <option id="star" value="4 stars">4 stars</option>
-              <option id="star" value="5 stars">5 stars</option>
+            <option id="1-star" value="1">minimum rating</option>
+            <option id="1-star" value="1">1 star</option>
+            <option id="2-star" value="2">2 stars</option>
+            <option id="3-star" value="3">3 stars</option>
+            <option id="4-star" value="4">4 stars</option>
+            <option id="5-star" value="5">5 stars</option>
             </select>
             </div>
             <div class='search-bookmark'>
@@ -140,6 +141,53 @@ const bookmarkList = (function(){
   </li>`;
   }
 
+  function setStarFilterFalse(){
+    bookmarkStore.starFilter=false;
+  }
+
+  function generateBookmarkListingHtmlStringAfterStarFilter(){
+    // set starfilter false to reset
+    
+    let bookmarkListingHtml = [];
+    
+    
+    for(let i = 0; i<bookmarkStore.items.length; i++){
+      
+      let id = bookmarkStore.items[i].id;
+      let title = bookmarkStore.items[i].title;
+      let rating = bookmarkStore.items[i].rating;
+      let desc = bookmarkStore.items[i].desc;
+      let url = bookmarkStore.items[i].url;
+      if(rating >= bookmarkStore.ratingSelected){
+        console.log('rating',rating,'id',id,'bookmarkStore ratingselected',bookmarkStore.ratingSelected);
+        {if(bookmarkStore.items[i].edit){
+          bookmarkListingHtml.push(generateEditBookmarkHtmlString(id,title,url,desc));
+        }
+        else if(bookmarkStore.items[i].expanded){
+          bookmarkListingHtml.push(generateExpandedBookmarkHtml(id,title,rating,desc,url));
+        }
+     
+        //console.log('testing inside loop',id,title,rating);
+        else{
+        
+          bookmarkListingHtml.push(generateBookmarkItemHtmlString(id,title,rating));
+        }
+        }
+    
+        //console.log('testing bookmarkListing string',bookmarkListingHtml);
+        
+      }
+      
+    
+    }
+    return bookmarkListingHtml.join('');
+  }
+
+
+
+
+
+
   function generateBookmarkListingHtmlString(){
     let bookmarkListingHtml = [];
     
@@ -187,7 +235,15 @@ const bookmarkList = (function(){
     }
     //console.log('testing bookmarklist whole string',generateBookmarkListingHtmlString());
     //console.log(bookmarkStore.items);
-    $('.bookmark-list').html(generateBookmarkListingHtmlString());
+    if(bookmarkStore.starFilter){
+      setStarFilterFalse();
+      $('.bookmark-list').html(generateBookmarkListingHtmlStringAfterStarFilter());
+      
+      console.log('test filter selected',generateBookmarkListingHtmlStringAfterStarFilter());
+    }else{
+      console.log('test filter not selected',generateBookmarkListingHtmlString());
+      $('.bookmark-list').html(generateBookmarkListingHtmlString());
+    }
   }
 
   function editBookmarkHandler(){
@@ -334,6 +390,21 @@ const bookmarkList = (function(){
     });
   }
 
+
+  function setStarFilterTrue(){
+    bookmarkStore.starFilter = true;
+    render();
+  }
+
+  function starFilterHandler(){
+    console.log('`starFilterHandler` ran');
+    $('.add-bookmark').on('change','.star-filter',function(){
+      let starFilterValue = Number($(this).val()[0]);
+      bookmarkStore.ratingSelected = starFilterValue;
+      setStarFilterTrue();
+    });
+  }
+
   function bindEventListeners(){
     addNewBookmarkHandler();
     expandBookmark();
@@ -342,6 +413,7 @@ const bookmarkList = (function(){
     addNewBookmark();
     mouseOverBookmarkItem();
     editBookmark();
+    starFilterHandler();
    
     
     render();

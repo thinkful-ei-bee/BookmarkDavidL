@@ -11,6 +11,7 @@ const bookmarkStore = {
   adding: false,
   errorMessage:null,
   starFilter:false, 
+  ratingSelected:null,
   searchTerm:null
 };
 
