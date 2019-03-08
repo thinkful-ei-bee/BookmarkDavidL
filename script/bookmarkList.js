@@ -383,7 +383,7 @@ const bookmarkList = (function(){
   function deleteBookmark(){
     console.log('`deleteBookmark` ran');
     $('ul').on('click','.bookmark-delete',function(event){
-      if(!confirm('Text here')) { 
+      if(!confirm('Are you sure?')) { 
         return; 
       }
       const id = $(this).parents('li').data('item-id');
