@@ -73,3 +73,9 @@
 	  width:100%;
   }
 }
+
+@media only screen and (min-width: 480px) {
+textarea{
+  max-width: 100px;
+}
+}

@@ -11,21 +11,21 @@ const bookmarkList = (function(){
     return `<div class='new-bookmark-input-field'>
     <form name = 'add-bookmark-form' class='add-bookmark-form'>
     <div> 
-    <input type="text" name='title' placeholder="book title" ></input>
-    <input type="text" name='url' placeholder="site link" ></input>
+    <input id="title-input-add-book" type="text" name='title' placeholder="book title" ></input>
+    <input id = "url-input-add-book" type="text" name='url' placeholder="url:http://" ></input>
     </div>
     <div>
-        <textarea name = 'desc' rows='5' cols='50' placeholder='description'type="text"></textarea>
+        <textarea name = 'desc' rows='10' cols='150' type="text"></textarea>
     </div>
     <div class='star-rating'>
-    <input type="radio" name="rating" value="1">1<br>
-    <input type="radio" name="rating" value="2">2<br>
-    <input type="radio" name="rating" value="3"> 3<br>
-    <input type="radio" name="rating" value="4"> 4<br>
-    <input type="radio" name="rating" value="5"> 5<br>
+    <input type="radio" name="rating" value="1"> 1  ${generateRatingStarsHtmlString(1)}<br>
+    <input type="radio" name="rating" value="2"> 2  ${generateRatingStarsHtmlString(2)}<br>
+    <input type="radio" name="rating" value="3"> 3  ${generateRatingStarsHtmlString(3)}<br>
+    <input type="radio" name="rating" value="4"> 4  ${generateRatingStarsHtmlString(4)}<br>
+    <input type="radio" name="rating" value="5"> 5  ${generateRatingStarsHtmlString(5)}<br>
     </div>
     <button type = 'submit' class='add-bookmark-submit'>Submit</button>
-    <button type = 'button' class='add-bookmark-submit-cancel'>cancel</button>
+    
   </form></div>
   
     `;
@@ -40,17 +40,17 @@ const bookmarkList = (function(){
     <input type="text" name='url' value=${url} > </input>
     </div>
     <div>
-        <textarea name = 'desc' rows='5' cols='50' placeholder='description'type="text" >${desc}</textarea>
+        <textarea name = 'desc' rows='10' cols='150' type="text" >${desc}</textarea>
     </div>
     <div class='star-rating'>
-    <input type="radio" name="rating" value="1">1<br>
-    <input type="radio" name="rating" value="2">2<br>
+    <input type="radio" name="rating" value="1"> 1<br>
+    <input type="radio" name="rating" value="2"> 2<br>
     <input type="radio" name="rating" value="3"> 3<br>
     <input type="radio" name="rating" value="4"> 4<br>
     <input type="radio" name="rating" value="5"> 5<br>
     </div>
     <button type = 'submit' class='edit-bookmark-submit'>Submit</button>
-    <button type = 'button' class='edit-bookmark-submit-cancel'>cancel</button>
+    
   </form></div></li></div>
   
     `;
@@ -70,10 +70,11 @@ const bookmarkList = (function(){
             <option id="4-star" value="4">4 stars</option>
             <option id="5-star" value="5">5 stars</option>
             </select>
+            <input class = 'bookmark-search' placeholder="search bookmark"></input>
             </div>
-            <div class='search-bookmark'>
-           <input placeholder="search bookmark"></input>
-           </div>
+            
+           
+           
            </div>
     `;
   }
@@ -85,7 +86,7 @@ const bookmarkList = (function(){
       starHtmlString.push('<span class="fa fa-star checked"></span>');
     }
     for(let i = 0;i<(5-rating);i++){
-      starHtmlString.push('<span class="fa fa-star"></span>');
+      starHtmlString.push('<span class="fa fa-star" style="color:lightgray"></span>');
     }
     //console.log('test stars rating string',starHtmlString.join(''));
     return starHtmlString.join('');
@@ -118,28 +119,28 @@ const bookmarkList = (function(){
       ${title}
       </div>
       
-      <div class='bookmark-expand-delete hidden'>
-        <span class='bookmark-expand fa fa-expand fa-lg'></span>
-        <span class='bookmark-delete fa fa-trash fa-lg'></span>
-      </div>
+        <div class='bookmark-expand-delete hidden'>
+          <span class='bookmark-expand fa fa-expand fa-lg'></span>
+          <span class='bookmark-delete fa fa-trash fa-lg'></span>
+        </div>
       </div>
       
       <div class='book-description'><h5>Description</h5>
-      ${desc}
-    </div>
+        <p id= 'dsec'>${desc}</p>
+      </div>
     
-    <div class="bookmark-visit-site">
-    <a target="_blank" href = ${url}>Visit site</a>
-    </div>
-    <div class="expand-footer">
+      <div class="bookmark-visit-site">
+        <a target="_blank" href = ${url}>Visit site</a>
+      </div>
+      <div class="expand-footer">
         
         <button class="bookmark-edit">Edit</button>
         
-      <div class='book-star-rating'>
+        <div class='book-star-rating'>
                   
         ${generateRatingStarsHtmlString(rating)}
+        </div>
       </div>
-    </div>
   </li>`;
   }
 
