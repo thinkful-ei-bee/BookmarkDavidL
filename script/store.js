@@ -12,7 +12,7 @@ const bookmarkStore = {
   errorMessage:null,
   starFilter:false, 
   ratingSelected:null,
-  searchTerm:null
+  searchTerm:''
 };
 
 

@@ -70,7 +70,7 @@ const bookmarkList = (function(){
             <option id="4-star" value="4">4 stars</option>
             <option id="5-star" value="5">5 stars</option>
             </select>
-            <input class = 'bookmark-search' placeholder="search bookmark"></input>
+            <input type = 'text' class = 'bookmark-search' value="${bookmarkStore.searchTerm}" placeholder="search bookmark"></input>
             </div>
             
            
@@ -220,10 +220,50 @@ const bookmarkList = (function(){
     return bookmarkListingHtml.join('');
   }
 
-  
+  function generateBookmarkSearchHtmlString(){
+    let bookmarkListingHtml = [];
+    
+    
+    for(let i = 0; i<bookmarkStore.items.length; i++){
+      
+      let id = bookmarkStore.items[i].id;
+      let title = bookmarkStore.items[i].title;
+      let rating = bookmarkStore.items[i].rating;
+      let desc = bookmarkStore.items[i].desc;
+      let url = bookmarkStore.items[i].url;
+      if(title.includes(bookmarkStore.searchTerm)){
+        console.log('rating',rating,'id',id,'bookmarkStore ratingselected',bookmarkStore.ratingSelected);
+        {if(bookmarkStore.items[i].edit){
+          bookmarkListingHtml.push(generateEditBookmarkHtmlString(id,title,url,desc));
+        }
+        else if(bookmarkStore.items[i].expanded){
+          bookmarkListingHtml.push(generateExpandedBookmarkHtml(id,title,rating,desc,url));
+        }
+     
+        //console.log('testing inside loop',id,title,rating);
+        else{
+        
+          bookmarkListingHtml.push(generateBookmarkItemHtmlString(id,title,rating));
+        }
+        }
+    
+        //console.log('testing bookmarkListing string',bookmarkListingHtml);
+        
+      }
+      
+    
+    }
+    return bookmarkListingHtml.join('');
+  }
+
+
   // render function 
   function render(){
+
     $('.entry-error-field').empty();
+    
+    
+    
     if(bookmarkStore.adding){
       //console.log('adding is true');
       $('.add-bookmark').html(generateAddBookmarkHtmlString());
@@ -243,8 +283,13 @@ const bookmarkList = (function(){
       $('.bookmark-list').html(generateBookmarkListingHtmlStringAfterStarFilter());
       
       console.log('test filter selected',generateBookmarkListingHtmlStringAfterStarFilter());
-    }else{
-      console.log('test filter not selected',generateBookmarkListingHtmlString());
+    }
+    else if(bookmarkStore.searchTerm){
+      $('.bookmark-list').html(generateBookmarkSearchHtmlString());
+    }
+    
+    else{
+      //console.log('test filter not selected',generateBookmarkListingHtmlString());
       $('.bookmark-list').html(generateBookmarkListingHtmlString());
     }
   }
@@ -408,6 +453,26 @@ const bookmarkList = (function(){
     });
   }
 
+  function setSearchTerm(val){
+    bookmarkStore.searchTerm = val;
+  }
+
+  function bookmarkSearchHandler(){
+    console.log('`bookmarkSearchHandler`ran');
+    $('.add-bookmark').on('keyup','.bookmark-search',event=>{
+      
+      const val=$(event.target).val();
+      console.log('this is a test',val);
+      setSearchTerm(val);
+      render();
+    });
+
+  }
+  
+
+
+
+
   function bindEventListeners(){
     addNewBookmarkHandler();
     expandBookmark();
@@ -417,6 +482,8 @@ const bookmarkList = (function(){
     mouseOverBookmarkItem();
     editBookmark();
     starFilterHandler();
+    console.log('about to run search handler');
+    bookmarkSearchHandler();
    
     
     render();
