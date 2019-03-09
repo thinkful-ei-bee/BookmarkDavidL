@@ -1,10 +1,13 @@
+Author: Jizong Liang
+Partner: None
 
 
 ## bugs to fix
 
-Description is not properly displayed in small device.
+Rresponsive Test
+Accessibility Test
 
-Add new bookmark, Mininum rating, and Search are not responsive, need to set grid to fix this issue
+
 
 ## Additional feature
 

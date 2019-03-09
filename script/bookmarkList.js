@@ -50,7 +50,7 @@ const bookmarkList = (function(){
     <input type="radio" name="rating" value="5"> 5  ${generateRatingStarsHtmlString(5)}<br>
     </div>
     <button type = 'submit' class='edit-bookmark-submit'>Submit</button>
-    
+    <button type = 'click' class='add-bookmark-cancel'>Cancel</button>
   </form></div></li></div>
   
     `;
@@ -78,6 +78,7 @@ const bookmarkList = (function(){
            
            
            </div>
+          
     `;
   }
 
@@ -292,7 +293,9 @@ const bookmarkList = (function(){
     
     else{
       //console.log('test filter not selected',generateBookmarkListingHtmlString());
+      
       $('.bookmark-list').html(generateBookmarkListingHtmlString());
+      
     }
   }
 
@@ -421,6 +424,7 @@ const bookmarkList = (function(){
     console.log('`cancelAddBookmark` ran');
     $('.add-bookmark').on('click','.add-bookmark-cancel',function(){
       bookmarkStore.adding=false;
+      bookmarkStore.errorMessage=null;
       render();
     });
   }
