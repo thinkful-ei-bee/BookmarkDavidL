@@ -341,7 +341,7 @@ const bookmarkList = (function(){
       const id = $(this).parents('li').data('item-id');
       let bookMarkEdited = $(event.target).serializeJson();
 
-      console.log('testing edited json form content current',bookMarkEdited,id);
+      
       api.updateItem(id,bookMarkEdited)
         .then(()=>{
           // need to convert an jason object back to javascript object.

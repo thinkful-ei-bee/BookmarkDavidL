@@ -1,33 +1,41 @@
+# Thinkful Project 1 Bookmark Webapp
+
+Cohort: 29
 Author: Jizong Liang
 Partner: None
 
+## Project Overview
 
-## bugs to fix
-
-Rresponsive Test
-Accessibility Test
+build the frontend for an API-powered Bookmarks application that lets the user store and rate their custom web bookmarks.
 
 
 
-## Additional feature
+## Testing
+It is tested on multiple devices, including Iphone 5E, Iphone 6, Iphone 6 Plus, Iphone MX, Ipad mini, Ipad pro, Responsive. 
 
-Search feature is not yet generated 
-
-cover page to enter the bookmark, and reset to start anew 
-(require to randomly generate api user name)
-
-Build a Carousel for the banner 
-
-When individual bookmark is hovered, shadow appears. 
-
-footer with my personal contact 
+All contents aligned and display properly
 
 
-## Submission guideline
 
-Recap on submission process:
-1) **ONLY** the original Driver should submit the project (REPEAT: do not submit twice if working in a pair!)
-2) Add a README to your project that includes the two student's full names
-3) Make sure to publish your project to Github Pages, either using the web interface or creating a `gh-pages` branch
-4) Provide the link to the live app in the README (it will always be `https://thinkful-ei-bee.github.io/[repo-name]` ) (edited) 
+## Verson 1.0
+### Functions
+Add bookmark
+Filter bookmarks by star rating
+Search bookmark
+Expand bookmark to view details
+Edit bookmark
+Delete bookmark
+
+
+
+## Version 2.0(In the future)
+### Additional features 
+add color theme
+add clear all bookmark 
+add footer
+add carousel as hero
+
+
+
+
 
