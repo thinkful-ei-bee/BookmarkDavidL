@@ -32,7 +32,7 @@ const bookmarkList = (function(){
   }
 
   function generateEditBookmarkHtmlString(id,title,url,desc){
-    return `<div class='edit-box'><li data-item-id = ${id} class = 'edit-bookmark-expand' id='bookmark-title-edit'>
+    return `<div class='edit-box'><li data-item-id = ${id} class = ' edit-bookmark-expand' id='bookmark-title-edit'>
     <div class='edit-bookmark-input-field'>
     <form name = 'add-bookmark-form' class='add-bookmark-form'>
     <div> 
@@ -99,7 +99,7 @@ const bookmarkList = (function(){
     
     
     return ` <li data-item-id = ${id} id='bookmark-title-list'>
-    <div class='book-title'>
+    <div class='book-title '>
       <div class='title'>
       ${title}
       </div>
@@ -115,7 +115,7 @@ const bookmarkList = (function(){
     `;
   }
   function generateExpandedBookmarkHtml(id,title,rating,desc,url){
-    return `<li data-item-id = ${id} class="expanded"id='bookmark-title-list'>
+    return `<li data-item-id = ${id} class=" expanded"id='bookmark-title-list'>
     <div class='book-title'>
     
       <div class = 'title'>
@@ -363,13 +363,18 @@ const bookmarkList = (function(){
     console.log('`mouseOverBookmark` ran');
     $('ul').on('mouseover','#bookmark-title-list',function(event){
       $(this).find('.bookmark-expand-delete').removeClass('hidden');
+      $(this).addClass('hidden-shadow');
       
     });
     $('ul').on('mouseout','#bookmark-title-list',function(event){
       $(this).find('.bookmark-expand-delete').addClass('hidden');  
+      $(this).removeClass('hidden-shadow');
       
     });
   }
+
+  
+
 
   function findExpandedAndUpdateStore(id){
     let foundItem = bookmarkStore.items.find(bookmark=>bookmark.id===id);
@@ -511,6 +516,7 @@ const bookmarkList = (function(){
     editBookmarkCancel();
     starFilterHandler();
     console.log('about to run search handler');
+    bookmarkAddShadowWhenHover();
     bookmarkSearchHandler();
    
     
