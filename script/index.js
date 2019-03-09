@@ -19,7 +19,6 @@ $(document).ready(function() {
   
   api.getItems()
     .then(resJson => addItemsToLocalStoreAndRender(resJson));
-  //.catch(err => addErrorToStoreAndRender(err.message));
   bookmarkList.bindEventListeners();
   
 });

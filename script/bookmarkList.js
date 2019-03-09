@@ -1,88 +1,82 @@
 'use strict';
-/*global bookmarkStore api $ addItemsToLocalStoreAndRender*/ 
+/*global bookmarkStore api $ */ 
 
 const bookmarkList = (function(){
 
-
-
-
   // geneate string for bookmark toolbox
   function generateAddBookmarkHtmlString(){
-    return `<div class='new-bookmark-input-field'>
-    <form name = 'add-bookmark-form' class='add-bookmark-form'>
-    <div class='add-bookmark-input-box'> 
-    <input id="title-input-add-book" type="text" name='title' placeholder="book title" ></input>
-    <input id = "url-input-add-book" type="text" name='url' placeholder="url:http://" ></input>
+    return `
+    <div class='new-bookmark-input-field'>
+      <form name = 'add-bookmark-form' class='add-bookmark-form'>
+        <div class='add-bookmark-input-box'> 
+          <input id="title-input-add-book" type="text" name='title' placeholder="book title" ></input>
+          <input id = "url-input-add-book" type="text" name='url' placeholder="url:http://" ></input>
+        </div>
+        <div class='desc-add-new'>
+            <textarea name = 'desc' rows='10' cols='150' type="text"></textarea>
+        </div>
+        <div class='star-rating'>
+          <input type="radio" name="rating" value="1"> 1  ${generateRatingStarsHtmlString(1)}<br>
+          <input type="radio" name="rating" value="2"> 2  ${generateRatingStarsHtmlString(2)}<br>
+          <input type="radio" name="rating" value="3"> 3  ${generateRatingStarsHtmlString(3)}<br>
+          <input type="radio" name="rating" value="4"> 4  ${generateRatingStarsHtmlString(4)}<br>
+          <input type="radio" name="rating" value="5"> 5  ${generateRatingStarsHtmlString(5)}<br>
+        </div>
+          <button type = 'submit' class='add-bookmark-submit'>Submit</button>
+          <button type = 'click' class='add-bookmark-cancel'>Cancel</button>
+      </form>
     </div>
-    <div class='desc-add-new'>
-        <textarea name = 'desc' rows='10' cols='150' type="text"></textarea>
-    </div>
-    <div class='star-rating'>
-    <input type="radio" name="rating" value="1"> 1  ${generateRatingStarsHtmlString(1)}<br>
-    <input type="radio" name="rating" value="2"> 2  ${generateRatingStarsHtmlString(2)}<br>
-    <input type="radio" name="rating" value="3"> 3  ${generateRatingStarsHtmlString(3)}<br>
-    <input type="radio" name="rating" value="4"> 4  ${generateRatingStarsHtmlString(4)}<br>
-    <input type="radio" name="rating" value="5"> 5  ${generateRatingStarsHtmlString(5)}<br>
-    </div>
-    <button type = 'submit' class='add-bookmark-submit'>Submit</button>
-    <button type = 'click' class='add-bookmark-cancel'>Cancel</button>
-  </form></div>
-  
     `;
   }
-
+ 
+  // generate html string for bookmark edit mode
   function generateEditBookmarkHtmlString(id,title,url,desc){
-    return `<div class='edit-box'><li data-item-id = ${id} class = ' edit-bookmark-expand' id='bookmark-title-edit'>
-    <div class='edit-bookmark-input-field'>
-    <form name = 'add-bookmark-form' class='add-bookmark-form'>
-    <div> 
-    <input class = "edit-input-title" type="text" name='title' value=${title} ></input>
-    <input class = "edit-input-url" type="text" name='url' value=${url} > </input>
-    </div>
-    <div>
-        <textarea name = 'desc' rows='10' cols='150' type="text" >${desc}</textarea>
-    </div>
-    <div class='star-rating'>
-    <input type="radio" name="rating" value="1"> 1  ${generateRatingStarsHtmlString(1)}<br>
-    <input type="radio" name="rating" value="2"> 2  ${generateRatingStarsHtmlString(2)}<br>
-    <input type="radio" name="rating" value="3"> 3  ${generateRatingStarsHtmlString(3)}<br>
-    <input type="radio" name="rating" value="4"> 4  ${generateRatingStarsHtmlString(4)}<br>
-    <input type="radio" name="rating" value="5"> 5  ${generateRatingStarsHtmlString(5)}<br>
-    </div>
-    <button type = 'submit' class='edit-bookmark-submit'>Submit</button>
-    <button type = 'click' class='edit-bookmark-cancel'>Cancel</button>
-  </form></div></li></div>
-  
+    return `
+  <div class='edit-box'>
+    <li data-item-id = ${id} class = ' edit-bookmark-expand' id='bookmark-title-edit'>
+      <div class='edit-bookmark-input-field'>
+        <form name = 'add-bookmark-form' class='add-bookmark-form'>
+          <div> 
+            <input class = "edit-input-title" type="text" name='title' value=${title} ></input>
+            <input class = "edit-input-url" type="text" name='url' value=${url} > </input>
+          </div>
+        <div>
+          <textarea name = 'desc' rows='10' cols='150' type="text" >${desc}</textarea>
+        </div>
+        <div class='star-rating'>
+          <input type="radio" name="rating" value="1"> 1  ${generateRatingStarsHtmlString(1)}<br>
+          <input type="radio" name="rating" value="2"> 2  ${generateRatingStarsHtmlString(2)}<br>
+          <input type="radio" name="rating" value="3"> 3  ${generateRatingStarsHtmlString(3)}<br>
+          <input type="radio" name="rating" value="4"> 4  ${generateRatingStarsHtmlString(4)}<br>
+          <input type="radio" name="rating" value="5"> 5  ${generateRatingStarsHtmlString(5)}<br>
+        </div>
+          <button type = 'submit' class='edit-bookmark-submit'>Submit</button>
+          <button type = 'click' class='edit-bookmark-cancel'>Cancel</button>
+        </form>
+      </div>
+    </li>
+  </div>
     `;
   }
 
-
+  // generate html string for bookmark tool box
   function generateBookmarkToolboxHtmlString(){
     return `
-    
-      
     <div class='bookmark-tool-search'>
-            <button class="js-add-bookmark" type = 'submit'>Add New Bookmark</button>
-            <select class = 'star-filter' placeholder = 'minimum rating'name="star-filter">
-            <option id="star" value="1">   minimum rating</option>
-            <option id="star" value="1">1 star</option>
-            <option id="star" value="2">2 stars</option>
-            <option id="star" value="3">3 stars</option>
-            <option id="star" value="4">4 stars</option>
-            <option id="star" value="5">5 stars</option>
-            </select>
-            
-           
-            
-           
-           
-           
-           </div>
-          
+      <button class="js-add-bookmark" type = 'submit'>Add New Bookmark</button>
+        <select class = 'star-filter' placeholder = 'minimum rating'name="star-filter">
+          <option id="star" value="1">   minimum rating</option>
+          <option id="star" value="1">1 star</option>
+          <option id="star" value="2">2 stars</option>
+          <option id="star" value="3">3 stars</option>
+          <option id="star" value="4">4 stars</option>
+          <option id="star" value="5">5 stars</option>
+        </select>
+      </div>    
     `;
   }
 
-  // generate string for bookmark listing
+  // generate html string for bookmark listing
   function generateRatingStarsHtmlString(rating){
     const starHtmlString = [];
     for(let i = 0;i<rating;i++){
@@ -91,18 +85,17 @@ const bookmarkList = (function(){
     for(let i = 0;i<(5-rating);i++){
       starHtmlString.push('<span class="fa fa-star" style="color:lightgray"></span>');
     }
-    //console.log('test stars rating string',starHtmlString.join(''));
     return starHtmlString.join('');
   }
   
-  function generateBookmarkItemHtmlString(id,title,rating){
-    
-    
-    return ` <li data-item-id = ${id} id='bookmark-title-list'>
-    <div class='book-title '>
-      <div class='title'>
-      ${title}
-      </div>
+  // generate html string for bookmark item
+  function generateBookmarkItemHtmlString(id,title,rating){ 
+    return ` 
+    <li data-item-id = ${id} id='bookmark-title-list'>
+      <div class='book-title '>
+        <div class='title'>
+          ${title}
+        </div>
       <div class='bookmark-expand-delete hidden'>
         <span class='bookmark-expand fa fa-expand fa-lg'></span>
         <span class='bookmark-delete fa fa-trash fa-lg'></span>
@@ -114,13 +107,15 @@ const bookmarkList = (function(){
   </li>
     `;
   }
+
+  // generate html string for bookmark expand
   function generateExpandedBookmarkHtml(id,title,rating,desc,url){
-    return `<li data-item-id = ${id} class=" expanded"id='bookmark-title-list'>
-    <div class='book-title'>
-    
-      <div class = 'title'>
-      ${title}
-      </div>
+    return `
+    <li data-item-id = ${id} class=" expanded"id='bookmark-title-list'>
+      <div class='book-title'>    
+        <div class = 'title'>
+          ${title}
+        </div>
       
         <div class='bookmark-expand-delete hidden'>
           <span class='bookmark-expand fa fa-expand fa-lg'></span>
@@ -128,133 +123,96 @@ const bookmarkList = (function(){
         </div>
       </div>
       
-      <div class='book-description'><h5>Description</h5>
+      <div class='book-description'>
+        <h5>Description</h5>
         <p id= 'dsec'>${desc}</p>
       </div>
     
       <div class="bookmark-visit-site">
         <a target="_blank" href = ${url}>Visit site</a>
       </div>
-      <div class="expand-footer">
-        
-        <button class="bookmark-edit">Edit</button>
-        
-        <div class='book-star-rating'>
-                  
-        ${generateRatingStarsHtmlString(rating)}
+      <div class="expand-footer">        
+        <button class="bookmark-edit">Edit</button>        
+        <div class='book-star-rating'>                  
+          ${generateRatingStarsHtmlString(rating)}
         </div>
       </div>
   </li>`;
   }
 
+  
   function setStarFilterFalse(){
     bookmarkStore.starFilter=false;
   }
 
+  // If star filter is triggered, call this function to render booklist. 
   function generateBookmarkListingHtmlStringAfterStarFilter(){
-    // set starfilter false to reset
-    
-    let bookmarkListingHtml = [];
-    
-    
-    for(let i = 0; i<bookmarkStore.items.length; i++){
-      
+    let bookmarkListingHtml = [];    
+    for(let i = 0; i<bookmarkStore.items.length; i++){      
       let id = bookmarkStore.items[i].id;
       let title = bookmarkStore.items[i].title;
       let rating = bookmarkStore.items[i].rating;
       let desc = bookmarkStore.items[i].desc;
       let url = bookmarkStore.items[i].url;
-      if(rating >= bookmarkStore.ratingSelected){
-        console.log('rating',rating,'id',id,'bookmarkStore ratingselected',bookmarkStore.ratingSelected);
+      if(rating >= bookmarkStore.ratingSelected){      
         {if(bookmarkStore.items[i].edit){
           bookmarkListingHtml.push(generateEditBookmarkHtmlString(id,title,url,desc));
         }
         else if(bookmarkStore.items[i].expanded){
           bookmarkListingHtml.push(generateExpandedBookmarkHtml(id,title,rating,desc,url));
-        }
-     
-        //console.log('testing inside loop',id,title,rating);
-        else{
-        
+        }          
+        else{        
           bookmarkListingHtml.push(generateBookmarkItemHtmlString(id,title,rating));
         }
-        }
-    
-        //console.log('testing bookmarkListing string',bookmarkListingHtml);
-        
-      }
-      
-    
+        }                  
+      }          
     }
     return bookmarkListingHtml.join('');
   }
 
-
-
-
-
-
+  // Generate booklist string original
   function generateBookmarkListingHtmlString(){
-    let bookmarkListingHtml = [];
-    
-    for(let i = 0; i<bookmarkStore.items.length; i++){
-      
+    let bookmarkListingHtml = [];    
+    for(let i = 0; i<bookmarkStore.items.length; i++){      
       let id = bookmarkStore.items[i].id;
       let title = bookmarkStore.items[i].title;
       let rating = bookmarkStore.items[i].rating;
       let desc = bookmarkStore.items[i].desc;
-      let url = bookmarkStore.items[i].url;
-      
+      let url = bookmarkStore.items[i].url;      
       if(bookmarkStore.items[i].edit){
         bookmarkListingHtml.push(generateEditBookmarkHtmlString(id,title,url,desc));
       }
       else if(bookmarkStore.items[i].expanded){
         bookmarkListingHtml.push(generateExpandedBookmarkHtml(id,title,rating,desc,url));
-      }
-     
-      //console.log('testing inside loop',id,title,rating);
-      else{
-        
+      }          
+      else{        
         bookmarkListingHtml.push(generateBookmarkItemHtmlString(id,title,rating));
       }
-    }
-    
-    //console.log('testing bookmarkListing string',bookmarkListingHtml);
+    }       
     return bookmarkListingHtml.join('');
   }
 
+  // if search is in action, call this function to render booklist
   function generateBookmarkSearchHtmlString(){
-    let bookmarkListingHtml = [];
-    
-    
-    for(let i = 0; i<bookmarkStore.items.length; i++){
-      
+    let bookmarkListingHtml = [];        
+    for(let i = 0; i<bookmarkStore.items.length; i++){      
       let id = bookmarkStore.items[i].id;
       let title = bookmarkStore.items[i].title;
       let rating = bookmarkStore.items[i].rating;
       let desc = bookmarkStore.items[i].desc;
       let url = bookmarkStore.items[i].url;
-      if(title.includes(bookmarkStore.searchTerm)){
-        console.log('rating',rating,'id',id,'bookmarkStore ratingselected',bookmarkStore.ratingSelected);
+      if(title.includes(bookmarkStore.searchTerm)){      
         {if(bookmarkStore.items[i].edit){
           bookmarkListingHtml.push(generateEditBookmarkHtmlString(id,title,url,desc));
         }
         else if(bookmarkStore.items[i].expanded){
           bookmarkListingHtml.push(generateExpandedBookmarkHtml(id,title,rating,desc,url));
-        }
-     
-        //console.log('testing inside loop',id,title,rating);
-        else{
-        
+        }          
+        else{        
           bookmarkListingHtml.push(generateBookmarkItemHtmlString(id,title,rating));
         }
         }
-    
-        //console.log('testing bookmarkListing string',bookmarkListingHtml);
-        
-      }
-      
-    
+      }          
     }
     return bookmarkListingHtml.join('');
   }
@@ -262,40 +220,27 @@ const bookmarkList = (function(){
 
   // render function 
   function render(){
-
-    $('.entry-error-field').empty();
-    
-    
-    
-    if(bookmarkStore.adding){
-      //console.log('adding is true');
+    // clear all error fields
+    $('.entry-error-field').empty();            
+    if(bookmarkStore.adding){      
       $('.add-bookmark').html(generateAddBookmarkHtmlString());
     }
-
     else {$('.add-bookmark').html(generateBookmarkToolboxHtmlString());
     }
     if(bookmarkStore.errorMessage!==null){
       $('.entry-error-field').html(
         `<span class = 'fa fa-exclamation-triangle'></span>  ${bookmarkStore.errorMessage}`
       );
-    }
-    //console.log('testing bookmarklist whole string',generateBookmarkListingHtmlString());
-    //console.log(bookmarkStore.items);
+    }    
     if(bookmarkStore.starFilter){
       setStarFilterFalse();
-      $('.bookmark-list').html(generateBookmarkListingHtmlStringAfterStarFilter());
-      
-      console.log('test filter selected',generateBookmarkListingHtmlStringAfterStarFilter());
+      $('.bookmark-list').html(generateBookmarkListingHtmlStringAfterStarFilter());           
     }
     else if(bookmarkStore.searchTerm){
       $('.bookmark-list').html(generateBookmarkSearchHtmlString());
-    }
-    
-    else{
-      //console.log('test filter not selected',generateBookmarkListingHtmlString());
-      
-      $('.bookmark-list').html(generateBookmarkListingHtmlString());
-      
+    }    
+    else{            
+      $('.bookmark-list').html(generateBookmarkListingHtmlString());      
     }
   }
 
@@ -303,24 +248,20 @@ const bookmarkList = (function(){
     console.log('`editBookmark handler` ran');   
     $('ul').on('click','.bookmark-edit',function(event){
       const id = $(this).parents('li').data('item-id');
-      let foundItem = bookmarkStore.items.find(bookmark=>bookmark.id===id);
-      console.log('test founditem in edit',foundItem);
+      let foundItem = bookmarkStore.items.find(bookmark=>bookmark.id===id);      
       Object.assign(foundItem,{edit:!foundItem.edit});     
       render();
     }); 
   }
   
-  function editBookmarkAndUpdateStore(id,updateData){
-    
-    console.log('testing editbookmark to store updateData',updateData);
+  function editBookmarkAndUpdateStore(id,updateData){        
     let updateDataToStore = Object.assign(updateData,{expanded:false,edit:false});
-    console.log('testing editbookmark to store updateDataToStore',updateDataToStore);
     let foundItemStoreWithId = bookmarkStore.items.find(bookmark=> bookmark.id===id);
-    console.log('testing editbookmark to store foundItem with id',foundItemStoreWithId);
     Object.assign(foundItemStoreWithId,updateDataToStore);
     bookmarkStore.adding=false;
     render();
   }
+
 
   function editBookmarkCancel(){
     $('.bookmark-list').on('click','.edit-bookmark-cancel',function(){
@@ -333,27 +274,16 @@ const bookmarkList = (function(){
     });
   }
 
-  // edit-bookmark-submit-cancel
+  
   function editBookmark(){
     console.log('`editBookmark` ran');
     $('ul').on('submit','form',function(event){
       event.preventDefault();
       const id = $(this).parents('li').data('item-id');
-      let bookMarkEdited = $(event.target).serializeJson();
-
-      
+      let bookMarkEdited = $(event.target).serializeJson();      
       api.updateItem(id,bookMarkEdited)
         .then(()=>{
-          // need to convert an jason object back to javascript object.
-          // here using JSON.parse()
           editBookmarkAndUpdateStore(id,JSON.parse(bookMarkEdited));})
-      // tested, nothing returned
-      //.then(resJ=>console.log('testing j',resJ)) 
-      // api.getItem()
-        
-      //     console.log('testing unique item',resJson);
-      //     addItemsToLocalStoreAndRender(resJson);
-      //   })
         .catch(err => addErrorToStoreAndRender(err.message));
       render();
     });
@@ -363,13 +293,11 @@ const bookmarkList = (function(){
     console.log('`mouseOverBookmark` ran');
     $('ul').on('mouseover','#bookmark-title-list',function(event){
       $(this).find('.bookmark-expand-delete').removeClass('hidden');
-      $(this).addClass('hidden-shadow');
-      
+      $(this).addClass('hidden-shadow');      
     });
     $('ul').on('mouseout','#bookmark-title-list',function(event){
       $(this).find('.bookmark-expand-delete').addClass('hidden');  
-      $(this).removeClass('hidden-shadow');
-      
+      $(this).removeClass('hidden-shadow');      
     });
   }
 
@@ -389,19 +317,18 @@ const bookmarkList = (function(){
     });
   }
 
-
   function addNewBookmarkToStore(object){
     console.log('`addNewBookmarkToStore` ran');
-    let objectAddExpanded = Object.assign(object,{expanded:false,edit:false});
-    
+    let objectAddExpanded = Object.assign(object,{expanded:false,edit:false});    
     bookmarkStore.items.push(objectAddExpanded);
     bookmarkStore.adding=false;
-    console.log('testing adding',bookmarkStore.adding);
     render();
   }
 
+  // extend the serializJson function for listener event to call
   $.fn.extend(
     {
+      // turn submit data into json format
       serializeJson:function(){
         const formData = new FormData(this[0]);
         const object = {};
@@ -422,17 +349,11 @@ const bookmarkList = (function(){
     $('.add-bookmark').on('submit','form',function(event){
       event.preventDefault(); 
       bookmarkStore.errorMessage = null;
-      console.log('submit clicked',$(this).val());
       let bookMark = $(event.target).serializeJson();
-      console.log('testing bookmark object',bookMark);
       api.createItem(bookMark)
-        //.then(res=>res.json())
         .then(resJson=>addNewBookmarkToStore(resJson))
         .catch(err => addErrorToStoreAndRender(err.message));
-      render();
-      
-      
-      
+      render();                  
     });
   }
 
@@ -449,10 +370,8 @@ const bookmarkList = (function(){
   function addNewBookmarkHandler(){
     console.log('`addNewBookmarkHandler` ran');
     $('.add-bookmark').on('click','.js-add-bookmark',function(){
-      bookmarkStore.adding = true;
-      
-      render();
-      
+      bookmarkStore.adding = true;      
+      render();      
     });
   }
 
@@ -463,7 +382,6 @@ const bookmarkList = (function(){
         return; 
       }
       const id = $(this).parents('li').data('item-id');
-      console.log('delete',id);
       api.deleteItem(id)
         .then(() => bookmarkStore.deleteItem(id));
     });
@@ -490,21 +408,16 @@ const bookmarkList = (function(){
 
   function bookmarkSearchHandler(){
     console.log('`bookmarkSearchHandler`ran');
-    $('.book-mark-search').on('keyup',event=>{
-      
+    $('.book-mark-search').on('keyup',event=>{      
       const val=$(event.target).val();
-      console.log('this is a test',val);
       setSearchTerm(val);
       render();
     });
-
   }
   
 
-
-
-
   function bindEventListeners(){
+    console.log('`bindEventListeners` ran');
     addNewBookmarkHandler();
     cancelAddBookmark();
     expandBookmark();
@@ -515,18 +428,13 @@ const bookmarkList = (function(){
     editBookmark();
     editBookmarkCancel();
     starFilterHandler();
-    console.log('about to run search handler');
-    bookmarkAddShadowWhenHover();
-    bookmarkSearchHandler();
-   
-    
+    bookmarkSearchHandler(); 
     render();
-    console.log('`bindEventListeners` ran');
+    
 
   }
 
-  return{
-    
+  return{  
     bindEventListeners:bindEventListeners,
     render:render
   };
