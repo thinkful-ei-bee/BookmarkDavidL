@@ -50,7 +50,7 @@ const bookmarkList = (function(){
     <input type="radio" name="rating" value="5"> 5  ${generateRatingStarsHtmlString(5)}<br>
     </div>
     <button type = 'submit' class='edit-bookmark-submit'>Submit</button>
-    <button type = 'click' class='add-bookmark-cancel'>Cancel</button>
+    <button type = 'click' class='edit-bookmark-cancel'>Cancel</button>
   </form></div></li></div>
   
     `;
@@ -322,6 +322,17 @@ const bookmarkList = (function(){
     render();
   }
 
+  function editBookmarkCancel(){
+    $('.bookmark-list').on('click','.edit-bookmark-cancel',function(){
+      bookmarkStore.adding=false;
+      bookmarkStore.errorMessage=null;
+      const id = $(this).parents('li').data('item-id');
+      let foundItem = bookmarkStore.items.find(bookmark=>bookmark.id===id);
+      foundItem.edit=false;
+      render();
+    });
+  }
+
   // edit-bookmark-submit-cancel
   function editBookmark(){
     console.log('`editBookmark` ran');
@@ -429,6 +440,7 @@ const bookmarkList = (function(){
     });
   }
 
+
   function addNewBookmarkHandler(){
     console.log('`addNewBookmarkHandler` ran');
     $('.add-bookmark').on('click','.js-add-bookmark',function(){
@@ -496,6 +508,7 @@ const bookmarkList = (function(){
     addNewBookmark();
     mouseOverBookmarkItem();
     editBookmark();
+    editBookmarkCancel();
     starFilterHandler();
     console.log('about to run search handler');
     bookmarkSearchHandler();
