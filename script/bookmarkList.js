@@ -7,20 +7,20 @@ const bookmarkList = (function(){
   function generateAddBookmarkHtmlString(){
     return `
     <div class='new-bookmark-input-field'>
-      <form name = 'add-bookmark-form' class='add-bookmark-form'>
+      <form role = 'add-new-bookmark' name = 'add-bookmark-form' class='add-bookmark-form'>
         <div class='add-bookmark-input-box'> 
-          <input id="title-input-add-book" type="text" name='title' placeholder="book title" ></input>
-          <input id = "url-input-add-book" type="text" name='url' placeholder="url:http://" ></input>
+          <input aria-label = 'enter-book-title' role='enter title' id="title-input-add-book" type="text" name='title' placeholder="book title" ></input>
+          <input aria-label = 'enter-book-http-link' role='enter' id = "url-input-add-book" type="text" name='url' placeholder="url:http://" ></input>
         </div>
-        <div class='desc-add-new'>
+        <div aria-label = 'enter-book-description'  role='enter description' class='desc-add-new'>
             <textarea name = 'desc' rows='10' cols='150' type="text"></textarea>
         </div>
         <div class='star-rating'>
-          <input type="radio" name="rating" value="1"> 1  ${generateRatingStarsHtmlString(1)}<br>
-          <input type="radio" name="rating" value="2"> 2  ${generateRatingStarsHtmlString(2)}<br>
-          <input type="radio" name="rating" value="3"> 3  ${generateRatingStarsHtmlString(3)}<br>
-          <input type="radio" name="rating" value="4"> 4  ${generateRatingStarsHtmlString(4)}<br>
-          <input type="radio" name="rating" value="5"> 5  ${generateRatingStarsHtmlString(5)}<br>
+          <input aria-label = '1-star' type="radio" name="rating" value="1"> 1  ${generateRatingStarsHtmlString(1)}<br>
+          <input aria-label = '2-star' type="radio" name="rating" value="2"> 2  ${generateRatingStarsHtmlString(2)}<br>
+          <input aria-label = '3-star' type="radio" name="rating" value="3"> 3  ${generateRatingStarsHtmlString(3)}<br>
+          <input aria-label = '4-star' type="radio" name="rating" value="4"> 4  ${generateRatingStarsHtmlString(4)}<br>
+          <input aria-label = '5-star' type="radio" name="rating" value="5"> 5  ${generateRatingStarsHtmlString(5)}<br>
         </div>
           <button type = 'submit' class='add-bookmark-submit'>Submit</button>
           <button type = 'click' class='add-bookmark-cancel'>Cancel</button>
@@ -91,7 +91,7 @@ const bookmarkList = (function(){
   // generate html string for bookmark item
   function generateBookmarkItemHtmlString(id,title,rating){ 
     return ` 
-    <li data-item-id = ${id} id='bookmark-title-list'>
+    <li aria-label = 'bookmark' role='bookmark' data-item-id = ${id} id='bookmark-title-list'>
       <div class='book-title '>
         <div class='title'>
           ${title}
@@ -111,7 +111,7 @@ const bookmarkList = (function(){
   // generate html string for bookmark expand
   function generateExpandedBookmarkHtml(id,title,rating,desc,url){
     return `
-    <li data-item-id = ${id} class=" expanded"id='bookmark-title-list'>
+    <li aria-label = 'bookmark' role='bookmark' data-item-id = ${id} class=" expanded"id='bookmark-title-list'>
       <div class='book-title'>    
         <div class = 'title'>
           ${title}

@@ -15,13 +15,12 @@
 </head>
 
 <body>
-    <div class = 'nav-bar' role = 'nav-bar'>
-      <div class='bookmark-title'>My Bookmark</div>
+    <div class = 'nav-bar' role = 'navigation'>
+      <div aria-label = 'enter-book-title' role='bookmark-title' class='bookmark-title'>My Bookmark</div>
       <div class='search-input-field'>
       <input class='book-mark-search' placeholder="Search...">
       </div>
-    </div>
-   
+    </div>   
     <div class="row">
 	    <div class="col-12">          
         <div class="add-bookmark">
@@ -33,8 +32,8 @@
           </div>
         
 
-        <div class = "box bookmark-list-box">
-        <ul class="bookmark-list">
+        <div role = 'bookmark list' class = "box bookmark-list-box">
+        <ul aria-label = 'bookmark' role='bookmark' class="bookmark-list">
           
 
         </ul>
