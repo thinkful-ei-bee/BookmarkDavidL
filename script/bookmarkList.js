@@ -1,6 +1,8 @@
 'use strict';
 /*global bookmarkStore api $ addItemsToLocalStoreAndRender*/ 
 
+
+// bookmarkList function 
 const bookmarkList = (function(){
 
 
