@@ -110,10 +110,52 @@ button{
   
 }
 
+.edit-bookmark-submit{
+  text-align: right;
+    
+    margin-top:10px;
+    margin-bottom:20px;
+    border : solid 1px #000000;
+    border-radius : 3px;
+    moz-border-radius : 3px;
+    -webkit-box-shadow : 0px 0px 2px rgba(0,0,0,1.0);
+    -moz-box-shadow : 0px 0px 2px rgba(0,0,0,1.0);
+    box-shadow : 0px 0px 2px rgba(0,0,0,1.0);
+    font-size : 20px;
+    color : #ffffff;
+    padding : 1px 17px;
+    background : #5f6166;
+    background : -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5f6166), color-stop(100%,#00060a));
+    background : -moz-linear-gradient(top, #5f6166 0%, #00060a 100%);
+    background : -webkit-linear-gradient(top, #5f6166 0%, #00060a 100%);
+    background : -o-linear-gradient(top, #5f6166 0%, #00060a 100%);
+    background : -ms-linear-gradient(top, #5f6166 0%, #00060a 100%);
+    background : linear-gradient(top, #5f6166 0%, #00060a 100%);
+    filter : progid:DXImageTransform.Microsoft.gradient( startColorstr='#5f6166', endColorstr='#00060a',GradientType=0 );
+  
+}
 .star-rating{
   margin-top:20px;
-  margin-left:100px;
-  text-align: left;
+ 
+}
+
+
+.edit-input-title{
+  width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: sans-serif;
+    font-size: 18px;
+    box-shadow: 0 0 5px lightgrey;
+}
+
+.edit-input-url{
+  width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: sans-serif;
+    font-size: 18px;
+    box-shadow: 0 0 5px lightgrey;
 }
 
 .book-star-rating{
@@ -147,11 +189,15 @@ margin-top:10px;
   
 }
 
+
+
 .book-mark-search{
   display:flex;
   width:200px;
   font-size:18px;
-  
+  background-image: url('https://www.w3schools.com/css/searchicon.png');
+  background-position: 170px 3px;
+  background-repeat: no-repeat;
 }
 
 .fa-expand{
@@ -422,6 +468,9 @@ textarea {
 }
 
 .book-mark-search{
+  background-image: url('https://www.w3schools.com/css/searchicon.png');
+  background-position: 170px 3px;
+  background-repeat: no-repeat;
   display:flex;
   margin-left:20px;
   margin-top:10px;

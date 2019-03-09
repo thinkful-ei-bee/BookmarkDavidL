@@ -36,18 +36,18 @@ const bookmarkList = (function(){
     <div class='edit-bookmark-input-field'>
     <form name = 'add-bookmark-form' class='add-bookmark-form'>
     <div> 
-    <input type="text" name='title' value=${title} ></input>
-    <input type="text" name='url' value=${url} > </input>
+    <input class = "edit-input-title" type="text" name='title' value=${title} ></input>
+    <input class = "edit-input-url" type="text" name='url' value=${url} > </input>
     </div>
     <div>
         <textarea name = 'desc' rows='10' cols='150' type="text" >${desc}</textarea>
     </div>
     <div class='star-rating'>
-    <input type="radio" name="rating" value="1"> 1<br>
-    <input type="radio" name="rating" value="2"> 2<br>
-    <input type="radio" name="rating" value="3"> 3<br>
-    <input type="radio" name="rating" value="4"> 4<br>
-    <input type="radio" name="rating" value="5"> 5<br>
+    <input type="radio" name="rating" value="1"> 1  ${generateRatingStarsHtmlString(1)}<br>
+    <input type="radio" name="rating" value="2"> 2  ${generateRatingStarsHtmlString(2)}<br>
+    <input type="radio" name="rating" value="3"> 3  ${generateRatingStarsHtmlString(3)}<br>
+    <input type="radio" name="rating" value="4"> 4  ${generateRatingStarsHtmlString(4)}<br>
+    <input type="radio" name="rating" value="5"> 5  ${generateRatingStarsHtmlString(5)}<br>
     </div>
     <button type = 'submit' class='edit-bookmark-submit'>Submit</button>
     
