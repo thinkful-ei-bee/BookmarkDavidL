@@ -10,11 +10,11 @@ const bookmarkList = (function(){
   function generateAddBookmarkHtmlString(){
     return `<div class='new-bookmark-input-field'>
     <form name = 'add-bookmark-form' class='add-bookmark-form'>
-    <div> 
+    <div class='add-bookmark-input-box'> 
     <input id="title-input-add-book" type="text" name='title' placeholder="book title" ></input>
     <input id = "url-input-add-book" type="text" name='url' placeholder="url:http://" ></input>
     </div>
-    <div>
+    <div class='desc-add-new'>
         <textarea name = 'desc' rows='10' cols='150' type="text"></textarea>
     </div>
     <div class='star-rating'>
@@ -25,7 +25,7 @@ const bookmarkList = (function(){
     <input type="radio" name="rating" value="5"> 5  ${generateRatingStarsHtmlString(5)}<br>
     </div>
     <button type = 'submit' class='add-bookmark-submit'>Submit</button>
-    
+    <button type = 'click' class='add-bookmark-cancel'>Cancel</button>
   </form></div>
   
     `;
@@ -59,20 +59,22 @@ const bookmarkList = (function(){
 
   function generateBookmarkToolboxHtmlString(){
     return `
-    <div class="box bookmark-tool-box">
+    
+      
     <div class='bookmark-tool-search'>
             <button class="js-add-bookmark" type = 'submit'>Add New Bookmark</button>
             <select class = 'star-filter' placeholder = 'minimum rating'name="star-filter">
-            <option id="1-star" value="1">minimum rating</option>
-            <option id="1-star" value="1">1 star</option>
-            <option id="2-star" value="2">2 stars</option>
-            <option id="3-star" value="3">3 stars</option>
-            <option id="4-star" value="4">4 stars</option>
-            <option id="5-star" value="5">5 stars</option>
+            <option id="star" value="1">   minimum rating</option>
+            <option id="star" value="1">1 star</option>
+            <option id="star" value="2">2 stars</option>
+            <option id="star" value="3">3 stars</option>
+            <option id="star" value="4">4 stars</option>
+            <option id="star" value="5">5 stars</option>
             </select>
-            <input type = 'text' class = 'bookmark-search' value="${bookmarkStore.searchTerm}" placeholder="search bookmark"></input>
-            </div>
             
+           
+            
+           
            
            
            </div>
@@ -273,7 +275,7 @@ const bookmarkList = (function(){
     }
     if(bookmarkStore.errorMessage!==null){
       $('.entry-error-field').html(
-        `${bookmarkStore.errorMessage}`
+        `<span class = 'fa fa-exclamation-triangle'></span>  ${bookmarkStore.errorMessage}`
       );
     }
     //console.log('testing bookmarklist whole string',generateBookmarkListingHtmlString());
@@ -415,6 +417,14 @@ const bookmarkList = (function(){
     });
   }
 
+  function cancelAddBookmark(){
+    console.log('`cancelAddBookmark` ran');
+    $('.add-bookmark').on('click','.add-bookmark-cancel',function(){
+      bookmarkStore.adding=false;
+      render();
+    });
+  }
+
   function addNewBookmarkHandler(){
     console.log('`addNewBookmarkHandler` ran');
     $('.add-bookmark').on('click','.js-add-bookmark',function(){
@@ -459,7 +469,7 @@ const bookmarkList = (function(){
 
   function bookmarkSearchHandler(){
     console.log('`bookmarkSearchHandler`ran');
-    $('.add-bookmark').on('keyup','.bookmark-search',event=>{
+    $('.book-mark-search').on('keyup',event=>{
       
       const val=$(event.target).val();
       console.log('this is a test',val);
@@ -475,6 +485,7 @@ const bookmarkList = (function(){
 
   function bindEventListeners(){
     addNewBookmarkHandler();
+    cancelAddBookmark();
     expandBookmark();
     deleteBookmark();
     editBookmarkHandler();
